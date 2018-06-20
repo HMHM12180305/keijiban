@@ -1,3 +1,7 @@
 <h1>Board#new</h1>
 <p>Find me in app/views/board/new.html.erb</p>
-<h1>hogehoge</h1>
+
+<%= form_for(@board, url: :board_index) do |f| %>
+  <%= f.text_field :name, placeholder: 'nameを入力してください' %>
+  <%= f.submit %>
+<% end %>
