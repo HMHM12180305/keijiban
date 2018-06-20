@@ -1,7 +1,18 @@
-showだょ
+<h1><%= @board.name %></h1>
 
-<%= @board.name %>
+<% @comments.each do |comment| %>
+  <div class="card" style="width: 100%;">
+    <div class="card-body">
+      <h5 class="card-title">名前: <%= comment.name %></h5>
+      <p class="card-text"><%= comment.content %></p>
+      <p class="card-subtitle mb-2 text-muted">投稿日: <%= comment.created_at %></p>
+      <%= link_to "こめんと削除", comment_path(comment.id), class: "btn btn-primary", method: :delete %>
+    </div>
+  </div>
+  <hr>
+<% end %>
 
+<h2>コメント投稿</h2>
 <% if @comment.errors.any? %>
   <div id="error_explanation" class="alert alert-danger">
     <ul>
@@ -12,12 +23,8 @@ showだょ
   </div>
 <% end %>
 
-<% @comments.each do |comment| %>
-  <p><%= comment.id %>: <%= comment.content %></p>
-<% end %>
-
-
 <%= form_for(@comment, url: :comment_index) do |f| %>
+  <%= f.text_field :name, placeholder: '名無しの鬼威惨', value: '名無しの鬼威惨' %>
   <%= f.text_field :content, placeholder: 'コメントを入力してください' %>
   <%= f.hidden_field :board_id, value: @board.id %>
   <%= f.submit %>
