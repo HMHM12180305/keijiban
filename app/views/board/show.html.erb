@@ -1,4 +1,25 @@
 showだょ
 
 <%= @board.name %>
+
+<% if @comment.errors.any? %>
+  <div id="error_explanation" class="alert alert-danger">
+    <ul>
+      <% @comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% @comments.each do |comment| %>
+  <p><%= comment.id %>: <%= comment.content %></p>
+<% end %>
+
+
+<%= form_for(@comment, url: :comment_index) do |f| %>
+  <%= f.text_field :content, placeholder: 'コメントを入力してください' %>
+  <%= f.hidden_field :board_id, value: @board.id %>
+  <%= f.submit %>
+<% end %>
 <%= link_to("戻る", board_index_path) %>
